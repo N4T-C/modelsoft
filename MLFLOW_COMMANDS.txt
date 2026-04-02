@@ -378,3 +378,113 @@ Log model:                  mlflow.sklearn.log_model(model, "name")
 Set tag:                    mlflow.set_tag(key, value)
 Search runs:                mlflow.search_runs(experiment_ids)
 Get run:                    mlflow.get_run(run_id)
+
+
+
+import mlflow
+import mlflow.sklearn
+from sklearn.linear_model import LinearRegression
+import numpy as np
+
+# Sample Data
+X = np.array([[1], [2], [3], [4], [5]])
+y = np.array([2, 4, 6, 8, 10])
+
+# Start MLflow Run
+with mlflow.start_run():
+
+    # Create Model
+    model = LinearRegression()
+
+    # Train Model
+    model.fit(X, y)
+
+    # Predictions
+    predictions = model.predict(X)
+
+    # Calculate Error (MSE)
+    error = np.mean((predictions - y) ** 2)
+
+    # Log Parameters
+    mlflow.log_param("model_type", "LinearRegression")
+    mlflow.log_param("data_size", len(X))
+
+    # Log Metrics
+    mlflow.log_metric("mse", error)
+
+    # Log Model
+    mlflow.sklearn.log_model(model, "model")
+
+print("Run Completed Successfully")
+
+
+# -------------------------------
+# STEP 3: RUN THE SCRIPT
+# -------------------------------
+python mlflow_demo.py
+
+
+# -------------------------------
+# STEP 4: START MLFLOW UI
+# -------------------------------
+mlflow ui
+
+# Open browser:
+# http://127.0.0.1:5000
+
+
+# -------------------------------
+# STEP 5: VERIFY OUTPUT
+# -------------------------------
+# In MLflow UI:
+# - Check experiment runs
+# - View parameters (model_type, data_size)
+# - View metric (mse)
+# - Compare multiple runs
+
+
+# -------------------------------
+# STEP 6: RUN MULTIPLE TIMES
+# -------------------------------
+# Modify code slightly or run again
+# This creates multiple experiment runs
+
+
+# -------------------------------
+# STEP 7: ANALYSIS (WRITE IN RECORD)
+# -------------------------------
+# Observations:
+# - Model trained successfully
+# - Mean Squared Error is low
+
+# Pattern:
+# - Linear relationship between input (X) and output (y)
+
+# Insight:
+# - Linear Regression fits data well
+# - Model performance is consistent
+
+
+# -------------------------------
+# STEP 8: DOCUMENTATION
+# -------------------------------
+# Include:
+# - Screenshot of MLflow dashboard
+# - Screenshot of experiment runs
+# - Table of parameters and metrics
+
+# Example Table:
+# Run | Model Type       | Data Size | MSE
+# 1   | LinearRegression | 5         | 0.0
+
+
+# -------------------------------
+# STEP 9: DEMO / DEFENSE
+# -------------------------------
+# Say this:
+
+# - MLflow is used to track machine learning experiments
+# - Logged parameters and metrics
+# - Multiple runs are stored and compared
+# - Dashboard shows experiment results visually
+
