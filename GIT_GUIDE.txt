@@ -1,3 +1,31 @@
+winget install Python.Python.3
+python --version
+pip --version
+python -m ensurepip --upgrade
+
+
+winget install -e --id Python.Python.3;
+
+Write-Host "Restart PowerShell if python not detected";
+
+python --version;
+pip --version;
+
+if (!(Get-Command pip -ErrorAction SilentlyContinue)) {
+    python -m ensurepip --upgrade
+}
+
+python -m pip install --upgrade pip;
+
+pip install requests;
+
+python -m venv venv;
+
+.\venv\Scripts\activate;
+
+Write-Host "✅ Python, pip, venv READY"
+
+
 git config --global user.name "Your Full Name"
 git config --global user.email "your.email@example.com"
 git status
