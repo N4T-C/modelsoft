@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SafeHome</title>
+<style>
+body { font-family: Arial; background:#eef; }
+.card { background:white; padding:20px; margin:20px; border-radius:10px; }
+button { padding:8px; }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h2>SafeHome Security</h2>
+
+<label>Enter Password:</label>
+<input type="password" id="pass"><br><br>
+
+<button onclick="check()">Login</button>
+<button onclick="alertUser()">Trigger Sensor</button>
+
+<p id="output"></p>
+</div>
+
+<script>
+let correct = "1234";
+
+function check() {
+    let input = document.getElementById("pass").value;
+
+    if (input === correct) {
+        document.getElementById("output").innerText = "System Armed";
+    } else {
+        document.getElementById("output").innerText = "Wrong Password";
+    }
+}
+
+function alertUser() {
+    document.getElementById("output").innerText = "⚠ Intrusion Detected! Alert Sent!";
+}
+</script>
+
+</body>
+</html>

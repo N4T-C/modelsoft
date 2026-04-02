@@ -1,0 +1,536 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.container { padding: 1rem 0; }
+.tab-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.tab { padding: 8px 16px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: var(--color-background-secondary); color: var(--color-text-secondary); cursor: pointer; font-size: 13px; font-weight: 500; transition: all .15s; }
+.tab.active { background: var(--color-background-primary); color: var(--color-text-primary); border-color: var(--color-border-primary); }
+.section { display: none; }
+.section.active { display: block; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem; }
+.badge { display: inline-block; padding: 3px 10px; border-radius: var(--border-radius-md); font-size: 12px; font-weight: 500; margin-right: 6px; margin-bottom: 4px; }
+.badge-fr { background: var(--color-background-info); color: var(--color-text-info); }
+.badge-nfr { background: var(--color-background-warning); color: var(--color-text-warning); }
+.badge-hw { background: var(--color-background-success); color: var(--color-text-success); }
+h2 { font-size: 18px; font-weight: 500; margin-bottom: 1rem; color: var(--color-text-primary); }
+h3 { font-size: 15px; font-weight: 500; margin-bottom: .5rem; color: var(--color-text-primary); }
+p, li { font-size: 14px; color: var(--color-text-secondary); line-height: 1.7; }
+ul, ol { padding-left: 1.2rem; }
+li { margin-bottom: 4px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 500px) { .row { grid-template-columns: 1fr; } }
+.tip { background: var(--color-background-warning); border-left: 3px solid var(--color-border-warning); padding: 8px 12px; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; margin-bottom: .75rem; font-size: 13px; color: var(--color-text-warning); }
+.req-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 13px; color: var(--color-text-secondary); }
+.req-num { font-weight: 500; color: var(--color-text-primary); min-width: 22px; }
+svg text { font-family: var(--font-sans); }
+.dfd-wrap { overflow-x: auto; }
+</style>
+<div class="container">
+  <div class="tab-bar">
+    <div class="tab active" onclick="showTab('reqs')">Requirements</div>
+    <div class="tab" onclick="showTab('dfd')">DFD Diagrams</div>
+    <div class="tab" onclick="showTab('usecase')">Use Case</div>
+    <div class="tab" onclick="showTab('er')">ER Diagram</div>
+    <div class="tab" onclick="showTab('flow')">Flowcharts</div>
+    <div class="tab" onclick="showTab('extra')">Extra Topics</div>
+  </div>
+
+  <!-- REQUIREMENTS -->
+  <div class="section active" id="tab-reqs">
+    <h2>Functional vs Non-Functional Requirements</h2>
+    <div class="tip">Trick to remember: Functional = WHAT the system does. Non-Functional = HOW WELL it does it (speed, availability, constraints).</div>
+    <div class="row">
+      <div class="card">
+        <h3><span class="badge badge-fr">FR</span> Functional Requirements</h3>
+        <p style="margin-bottom:.5rem;font-size:12px;color:var(--color-text-secondary)">These are features/actions the system must perform:</p>
+        <div class="req-item"><span class="req-num">1.</span><span>Withdraw cash in multiples of 100</span></div>
+        <div class="req-item"><span class="req-num">2.</span><span>Deposit cash in multiples of 100</span></div>
+        <div class="req-item"><span class="req-num">3.</span><span>Balance enquiry</span></div>
+        <div class="req-item"><span class="req-num">4.</span><span>Transfer amount between two accounts</span></div>
+        <div class="req-item"><span class="req-num">5.</span><span>Print receipt</span></div>
+        <div class="req-item"><span class="req-num">6.</span><span>Validate PIN (3 attempts max)</span></div>
+        <div class="req-item"><span class="req-num">7.</span><span>Retain card on 3 failed PIN attempts</span></div>
+        <div class="req-item"><span class="req-num">8.</span><span>Record all transactions per account</span></div>
+        <div class="req-item"><span class="req-num">9.</span><span>Operator can start/stop machine</span></div>
+        <div class="req-item"><span class="req-num">10.</span><span>Operator enters total cash before starting</span></div>
+      </div>
+      <div class="card">
+        <h3><span class="badge badge-nfr">NFR</span> Non-Functional Requirements</h3>
+        <p style="margin-bottom:.5rem;font-size:12px;color:var(--color-text-secondary)">These are constraints/quality attributes:</p>
+        <div class="req-item"><span class="req-num">1.</span><span>Each transaction must complete within 60 seconds</span></div>
+        <div class="req-item"><span class="req-num">2.</span><span>Card retained if machine unused for 2 minutes</span></div>
+        <div class="req-item"><span class="req-num">3.</span><span>Available 24×7 (availability)</span></div>
+        <div class="req-item"><span class="req-num">4.</span><span>Serves one customer at a time</span></div>
+        <div class="req-item"><span class="req-num">5.</span><span>Magnetic stripe card reader (hardware)</span></div>
+        <div class="req-item"><span class="req-num">6.</span><span>Keyboard + display for interaction</span></div>
+        <div class="req-item"><span class="req-num">7.</span><span>Envelope deposit slot</span></div>
+        <div class="req-item"><span class="req-num">8.</span><span>Cash dispenser</span></div>
+        <div class="req-item"><span class="req-num">9.</span><span>Receipt printer</span></div>
+        <div class="req-item"><span class="req-num">10.</span><span>Operator key switch to start/stop</span></div>
+        <div class="req-item"><span class="req-num">11.</span><span>Customer can do multiple transactions in one session</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Hardware Components <span class="badge badge-hw">HW</span></h3>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
+        <span class="badge badge-hw">Card Reader</span>
+        <span class="badge badge-hw">Keypad</span>
+        <span class="badge badge-hw">Display Screen</span>
+        <span class="badge badge-hw">Cash Dispenser</span>
+        <span class="badge badge-hw">Envelope Slot</span>
+        <span class="badge badge-hw">Receipt Printer</span>
+        <span class="badge badge-hw">Operator Key Switch</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DFD -->
+  <div class="section" id="tab-dfd">
+    <h2>Data Flow Diagrams (DFD)</h2>
+    <div class="tip">DFD Symbols: Rectangle = External Entity | Circle/Bubble = Process | Open Rectangle = Data Store | Arrow = Data Flow</div>
+
+    <div class="card">
+      <h3>Context Diagram (Level 0 DFD)</h3>
+      <p style="margin-bottom:.75rem;font-size:13px;">Shows the ATM system as a single process with external entities around it.</p>
+      <div class="dfd-wrap">
+      <svg width="100%" viewBox="0 0 680 320">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <!-- Central process -->
+        <circle cx="340" cy="160" r="60" fill="#E6F1FB" stroke="#185FA5" stroke-width="1"/>
+        <text x="340" y="154" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C">ATM</text>
+        <text x="340" y="170" text-anchor="middle" font-size="11" fill="#185FA5">System</text>
+        <!-- Customer -->
+        <rect x="20" y="130" width="90" height="44" rx="4" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+        <text x="65" y="156" text-anchor="middle" font-size="12" font-weight="500" fill="#085041">Customer</text>
+        <!-- Bank -->
+        <rect x="570" y="130" width="90" height="44" rx="4" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+        <text x="615" y="156" text-anchor="middle" font-size="12" font-weight="500" fill="#085041">Bank DB</text>
+        <!-- Operator -->
+        <rect x="280" y="20" width="120" height="44" rx="4" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+        <text x="340" y="46" text-anchor="middle" font-size="12" font-weight="500" fill="#633806">Operator</text>
+        <!-- Receipt -->
+        <rect x="280" y="256" width="120" height="44" rx="4" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+        <text x="340" y="282" text-anchor="middle" font-size="12" font-weight="500" fill="#633806">Receipt/Log</text>
+        <!-- Arrows customer <-> ATM -->
+        <line x1="110" y1="152" x2="278" y2="152" stroke="#185FA5" stroke-width="1" marker-end="url(#arr)"/>
+        <text x="185" y="146" text-anchor="middle" font-size="10" fill="#185FA5">Card, PIN, Request</text>
+        <line x1="280" y1="168" x2="110" y2="168" stroke="#185FA5" stroke-width="1" marker-end="url(#arr)"/>
+        <text x="185" y="182" text-anchor="middle" font-size="10" fill="#185FA5">Cash / Info</text>
+        <!-- Arrows Bank <-> ATM -->
+        <line x1="400" y1="152" x2="568" y2="152" stroke="#0F6E56" stroke-width="1" marker-end="url(#arr)"/>
+        <text x="490" y="146" text-anchor="middle" font-size="10" fill="#0F6E56">Validate / Debit</text>
+        <line x1="568" y1="168" x2="402" y2="168" stroke="#0F6E56" stroke-width="1" marker-end="url(#arr)"/>
+        <text x="490" y="182" text-anchor="middle" font-size="10" fill="#0F6E56">Auth / Balance</text>
+        <!-- Operator -> ATM -->
+        <line x1="340" y1="64" x2="340" y2="98" stroke="#854F0B" stroke-width="1" marker-end="url(#arr)"/>
+        <text x="355" y="84" font-size="10" fill="#854F0B">Start/Stop, Cash</text>
+        <!-- ATM -> Receipt -->
+        <line x1="340" y1="220" x2="340" y2="254" stroke="#854F0B" stroke-width="1" marker-end="url(#arr)"/>
+        <text x="355" y="240" font-size="10" fill="#854F0B">Print / Record</text>
+      </svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Level 1 DFD — Expanded Processes</h3>
+      <p style="margin-bottom:.75rem;font-size:13px;">The ATM system is broken into sub-processes.</p>
+      <div class="dfd-wrap">
+      <svg width="100%" viewBox="0 0 680 480">
+        <defs>
+          <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <!-- External entities -->
+        <rect x="10" y="200" width="80" height="36" rx="4" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+        <text x="50" y="222" text-anchor="middle" font-size="11" font-weight="500" fill="#085041">Customer</text>
+        <rect x="590" y="200" width="80" height="36" rx="4" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+        <text x="630" y="222" text-anchor="middle" font-size="11" font-weight="500" fill="#085041">Bank DB</text>
+        <!-- Data stores -->
+        <rect x="200" y="420" width="130" height="32" rx="0" fill="none" stroke="#888780" stroke-width="1"/>
+        <line x1="210" y1="420" x2="210" y2="452" stroke="#888780" stroke-width="1"/>
+        <text x="272" y="441" text-anchor="middle" font-size="11" fill="#5F5E5A">D1: Transaction Log</text>
+        <rect x="380" y="420" width="130" height="32" rx="0" fill="none" stroke="#888780" stroke-width="1"/>
+        <line x1="390" y1="420" x2="390" y2="452" stroke="#888780" stroke-width="1"/>
+        <text x="447" y="441" text-anchor="middle" font-size="11" fill="#5F5E5A">D2: Account Data</text>
+        <!-- Process circles -->
+        <!-- P1: Card/PIN -->
+        <circle cx="180" cy="100" r="46" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+        <text x="180" y="95" text-anchor="middle" font-size="11" font-weight="500" fill="#0C447C">P1: Card &amp;</text>
+        <text x="180" y="110" text-anchor="middle" font-size="11" fill="#185FA5">PIN Validate</text>
+        <!-- P2: Withdraw -->
+        <circle cx="340" cy="100" r="46" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+        <text x="340" y="95" text-anchor="middle" font-size="11" font-weight="500" fill="#0C447C">P2:</text>
+        <text x="340" y="110" text-anchor="middle" font-size="11" fill="#185FA5">Withdraw</text>
+        <!-- P3: Deposit -->
+        <circle cx="500" cy="100" r="46" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+        <text x="500" y="95" text-anchor="middle" font-size="11" font-weight="500" fill="#0C447C">P3:</text>
+        <text x="500" y="110" text-anchor="middle" font-size="11" fill="#185FA5">Deposit</text>
+        <!-- P4: Balance -->
+        <circle cx="180" cy="280" r="46" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+        <text x="180" y="275" text-anchor="middle" font-size="11" font-weight="500" fill="#633806">P4: Balance</text>
+        <text x="180" y="290" text-anchor="middle" font-size="11" fill="#854F0B">Enquiry</text>
+        <!-- P5: Transfer -->
+        <circle cx="340" cy="280" r="46" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+        <text x="340" y="275" text-anchor="middle" font-size="11" font-weight="500" fill="#633806">P5:</text>
+        <text x="340" y="290" text-anchor="middle" font-size="11" fill="#854F0B">Transfer</text>
+        <!-- P6: Print -->
+        <circle cx="500" cy="280" r="46" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+        <text x="500" y="275" text-anchor="middle" font-size="11" font-weight="500" fill="#633806">P6: Print</text>
+        <text x="500" y="290" text-anchor="middle" font-size="11" fill="#854F0B">Receipt</text>
+        <!-- Customer -> P1 -->
+        <line x1="90" y1="212" x2="148" y2="136" stroke="#185FA5" stroke-width="0.8" marker-end="url(#arr2)"/>
+        <text x="105" y="168" font-size="9" fill="#185FA5">Card+PIN</text>
+        <!-- P1 -> P2,P3,P4,P5,P6 (via auth) -->
+        <line x1="226" y1="100" x2="292" y2="100" stroke="#185FA5" stroke-width="0.8" marker-end="url(#arr2)"/>
+        <line x1="386" y1="100" x2="452" y2="100" stroke="#185FA5" stroke-width="0.8" marker-end="url(#arr2)"/>
+        <line x1="180" y1="146" x2="180" y2="232" stroke="#854F0B" stroke-width="0.8" marker-end="url(#arr2)"/>
+        <line x1="234" y1="124" x2="300" y2="258" stroke="#854F0B" stroke-width="0.8" marker-end="url(#arr2)"/>
+        <line x1="272" y1="118" x2="456" y2="246" stroke="#854F0B" stroke-width="0.8" marker-end="url(#arr2)"/>
+        <!-- P2 -> Bank -->
+        <line x1="386" y1="86" x2="588" y2="206" stroke="#0F6E56" stroke-width="0.8" marker-end="url(#arr2)"/>
+        <!-- Bank -> P2 -->
+        <line x1="590" y1="218" x2="388" y2="116" stroke="#0F6E56" stroke-width="0.8" marker-end="url(#arr2)"/>
+        <!-- Processes -> D1 -->
+        <line x1="260" y1="322" x2="260" y2="418" stroke="#888780" stroke-width="0.8" marker-end="url(#arr2)"/>
+        <!-- P2 -> D1 -->
+        <line x1="340" y1="146" x2="300" y2="418" stroke="#888780" stroke-width="0.8" marker-end="url(#arr2)"/>
+        <!-- P5 -> D2 -->
+        <line x1="380" y1="316" x2="410" y2="418" stroke="#888780" stroke-width="0.8" marker-end="url(#arr2)"/>
+        <!-- Customer -> P4,P5 (request) -->
+        <line x1="90" y1="222" x2="134" y2="268" stroke="#854F0B" stroke-width="0.8" marker-end="url(#arr2)"/>
+        <!-- P4 -> Customer (balance) -->
+        <line x1="134" y1="288" x2="90" y2="230" stroke="#0F6E56" stroke-width="0.8" marker-end="url(#arr2)"/>
+      </svg>
+      </div>
+      <p style="font-size:12px;margin-top:.5rem;color:var(--color-text-secondary)">Note: D1 = Transaction Log (data store), D2 = Account Data (data store). Open rectangles with one side open = data stores.</p>
+    </div>
+  </div>
+
+  <!-- USE CASE -->
+  <div class="section" id="tab-usecase">
+    <h2>Use Case Diagram</h2>
+    <div class="tip">Use Case = what actors DO with the system. Actors are outside the system boundary box.</div>
+    <div class="card">
+      <div class="dfd-wrap">
+      <svg width="100%" viewBox="0 0 680 500">
+        <defs>
+          <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <!-- System boundary -->
+        <rect x="140" y="20" width="400" height="460" rx="8" fill="none" stroke="#888780" stroke-width="1" stroke-dasharray="6 3"/>
+        <text x="340" y="44" text-anchor="middle" font-size="13" font-weight="500" fill="#5F5E5A">ATM System</text>
+        <!-- Customer actor -->
+        <circle cx="50" cy="180" r="14" fill="none" stroke="#185FA5" stroke-width="1.5"/>
+        <line x1="50" y1="194" x2="50" y2="230" stroke="#185FA5" stroke-width="1.5"/>
+        <line x1="30" y1="210" x2="70" y2="210" stroke="#185FA5" stroke-width="1.5"/>
+        <line x1="50" y1="230" x2="30" y2="255" stroke="#185FA5" stroke-width="1.5"/>
+        <line x1="50" y1="230" x2="70" y2="255" stroke="#185FA5" stroke-width="1.5"/>
+        <text x="50" y="272" text-anchor="middle" font-size="12" font-weight="500" fill="#185FA5">Customer</text>
+        <!-- Operator actor -->
+        <circle cx="630" cy="360" r="14" fill="none" stroke="#854F0B" stroke-width="1.5"/>
+        <line x1="630" y1="374" x2="630" y2="410" stroke="#854F0B" stroke-width="1.5"/>
+        <line x1="610" y1="390" x2="650" y2="390" stroke="#854F0B" stroke-width="1.5"/>
+        <line x1="630" y1="410" x2="610" y2="435" stroke="#854F0B" stroke-width="1.5"/>
+        <line x1="630" y1="410" x2="650" y2="435" stroke="#854F0B" stroke-width="1.5"/>
+        <text x="630" y="452" text-anchor="middle" font-size="12" font-weight="500" fill="#854F0B">Operator</text>
+        <!-- Bank actor -->
+        <circle cx="630" cy="120" r="14" fill="none" stroke="#0F6E56" stroke-width="1.5"/>
+        <line x1="630" y1="134" x2="630" y2="170" stroke="#0F6E56" stroke-width="1.5"/>
+        <line x1="610" y1="150" x2="650" y2="150" stroke="#0F6E56" stroke-width="1.5"/>
+        <line x1="630" y1="170" x2="610" y2="195" stroke="#0F6E56" stroke-width="1.5"/>
+        <line x1="630" y1="170" x2="650" y2="195" stroke="#0F6E56" stroke-width="1.5"/>
+        <text x="630" y="212" text-anchor="middle" font-size="12" font-weight="500" fill="#0F6E56">Bank</text>
+        <!-- Use cases -->
+        <ellipse cx="280" cy="100" rx="90" ry="22" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+        <text x="280" y="104" text-anchor="middle" font-size="12" fill="#27500A">Insert Card &amp; PIN</text>
+        <ellipse cx="280" cy="170" rx="90" ry="22" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+        <text x="280" y="174" text-anchor="middle" font-size="12" fill="#0C447C">Withdraw Cash</text>
+        <ellipse cx="280" cy="240" rx="90" ry="22" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+        <text x="280" y="244" text-anchor="middle" font-size="12" fill="#0C447C">Deposit Cash</text>
+        <ellipse cx="280" cy="310" rx="90" ry="22" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+        <text x="280" y="314" text-anchor="middle" font-size="12" fill="#0C447C">Balance Enquiry</text>
+        <ellipse cx="280" cy="380" rx="90" ry="22" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+        <text x="280" y="384" text-anchor="middle" font-size="12" fill="#0C447C">Transfer Funds</text>
+        <ellipse cx="440" cy="170" rx="90" ry="22" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+        <text x="440" y="174" text-anchor="middle" font-size="12" fill="#633806">Validate Account</text>
+        <ellipse cx="440" cy="380" rx="90" ry="22" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+        <text x="440" y="384" text-anchor="middle" font-size="12" fill="#712B13">Print Receipt</text>
+        <ellipse cx="440" cy="450" rx="90" ry="22" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+        <text x="440" y="454" text-anchor="middle" font-size="12" fill="#633806">Start / Stop ATM</text>
+        <!-- Customer lines -->
+        <line x1="90" y1="190" x2="188" y2="108" stroke="#185FA5" stroke-width="0.8"/>
+        <line x1="90" y1="200" x2="188" y2="172" stroke="#185FA5" stroke-width="0.8"/>
+        <line x1="90" y1="210" x2="188" y2="242" stroke="#185FA5" stroke-width="0.8"/>
+        <line x1="90" y1="218" x2="188" y2="310" stroke="#185FA5" stroke-width="0.8"/>
+        <line x1="90" y1="225" x2="188" y2="378" stroke="#185FA5" stroke-width="0.8"/>
+        <!-- Bank lines -->
+        <line x1="614" y1="134" x2="532" y2="162" stroke="#0F6E56" stroke-width="0.8"/>
+        <!-- Operator lines -->
+        <line x1="614" y1="372" x2="532" y2="456" stroke="#854F0B" stroke-width="0.8"/>
+        <!-- include lines (dashed) -->
+        <line x1="370" y1="170" x2="348" y2="170" stroke="#888780" stroke-width="0.8" stroke-dasharray="4 2" marker-end="url(#arr3)"/>
+        <text x="360" y="160" text-anchor="middle" font-size="9" fill="#888780">«include»</text>
+        <line x1="370" y1="380" x2="348" y2="380" stroke="#888780" stroke-width="0.8" stroke-dasharray="4 2" marker-end="url(#arr3)"/>
+        <text x="360" y="370" text-anchor="middle" font-size="9" fill="#888780">«include»</text>
+      </svg>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Use Case Descriptions (for written exam)</h3>
+      <div class="req-item"><span class="req-num">UC1</span><span><b>Withdraw Cash</b> — Customer inserts card → enters PIN → selects withdraw → enters amount (multiple of 100) → cash dispensed → receipt printed</span></div>
+      <div class="req-item"><span class="req-num">UC2</span><span><b>Validate PIN</b> — System reads card → asks for PIN → checks with bank → allows 3 attempts → retains card on 3 failures</span></div>
+      <div class="req-item"><span class="req-num">UC3</span><span><b>Balance Enquiry</b> — After auth → customer selects balance → system queries bank → displays balance on screen</span></div>
+      <div class="req-item"><span class="req-num">UC4</span><span><b>Transfer</b> — Customer selects transfer → enters source + dest account + amount → bank processes → confirmation shown</span></div>
+      <div class="req-item"><span class="req-num">UC5</span><span><b>Operator Start/Stop</b> — Operator turns key → enters total cash on hand → machine starts/stops servicing customers</span></div>
+    </div>
+  </div>
+
+  <!-- ER DIAGRAM -->
+  <div class="section" id="tab-er">
+    <h2>ER Diagram (Entity-Relationship)</h2>
+    <div class="tip">ER Diagram shows the data model. Rectangles = Entities, Ovals = Attributes, Diamonds = Relationships, Lines show cardinality (1, M, N).</div>
+    <div class="card">
+      <div class="dfd-wrap">
+      <svg width="100%" viewBox="0 0 680 500">
+        <defs>
+          <marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <!-- Entities -->
+        <rect x="20" y="100" width="110" height="44" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="1"/>
+        <text x="75" y="126" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C">CUSTOMER</text>
+        <rect x="270" y="100" width="110" height="44" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="1"/>
+        <text x="325" y="126" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C">ATM CARD</text>
+        <rect x="520" y="100" width="110" height="44" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="1"/>
+        <text x="575" y="126" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C">ACCOUNT</text>
+        <rect x="270" y="310" width="130" height="44" rx="4" fill="#EAF3DE" stroke="#3B6D11" stroke-width="1"/>
+        <text x="335" y="336" text-anchor="middle" font-size="13" font-weight="500" fill="#27500A">TRANSACTION</text>
+        <rect x="520" y="310" width="110" height="44" rx="4" fill="#FAEEDA" stroke="#854F0B" stroke-width="1"/>
+        <text x="575" y="336" text-anchor="middle" font-size="13" font-weight="500" fill="#633806">ATM MACHINE</text>
+        <!-- Relationship diamonds -->
+        <polygon points="185,122 210,100 235,122 210,144" fill="#FBEAF0" stroke="#993556" stroke-width="0.8"/>
+        <text x="210" y="126" text-anchor="middle" font-size="10" fill="#72243E">owns</text>
+        <polygon points="435,122 460,100 485,122 460,144" fill="#FBEAF0" stroke="#993556" stroke-width="0.8"/>
+        <text x="460" y="126" text-anchor="middle" font-size="10" fill="#72243E">linked to</text>
+        <polygon points="270,250 295,228 320,250 295,272" fill="#FBEAF0" stroke="#993556" stroke-width="0.8"/>
+        <text x="295" y="254" text-anchor="middle" font-size="10" fill="#72243E">makes</text>
+        <polygon points="430,322 455,300 480,322 455,344" fill="#FBEAF0" stroke="#993556" stroke-width="0.8"/>
+        <text x="455" y="326" text-anchor="middle" font-size="10" fill="#72243E">via</text>
+        <!-- Connecting lines -->
+        <line x1="130" y1="122" x2="185" y2="122" stroke="#888780" stroke-width="0.8"/>
+        <line x1="235" y1="122" x2="270" y2="122" stroke="#888780" stroke-width="0.8"/>
+        <line x1="380" y1="122" x2="435" y2="122" stroke="#888780" stroke-width="0.8"/>
+        <line x1="485" y1="122" x2="520" y2="122" stroke="#888780" stroke-width="0.8"/>
+        <line x1="325" y1="144" x2="325" y2="228" stroke="#888780" stroke-width="0.8"/>
+        <line x1="295" y1="272" x2="295" y2="310" stroke="#888780" stroke-width="0.8"/>
+        <line x1="400" y1="332" x2="430" y2="322" stroke="#888780" stroke-width="0.8"/>
+        <line x1="480" y1="322" x2="520" y2="325" stroke="#888780" stroke-width="0.8"/>
+        <!-- Cardinality labels -->
+        <text x="148" y="115" font-size="10" fill="#888780">1</text>
+        <text x="250" y="115" font-size="10" fill="#888780">M</text>
+        <text x="398" y="115" font-size="10" fill="#888780">1</text>
+        <text x="503" y="115" font-size="10" fill="#888780">1</text>
+        <text x="308" y="190" font-size="10" fill="#888780">1</text>
+        <text x="308" y="260" font-size="10" fill="#888780">M</text>
+        <!-- Attributes (ovals) -->
+        <ellipse cx="40" cy="60" rx="38" ry="16" fill="none" stroke="#888780" stroke-width="0.6"/>
+        <text x="40" y="64" text-anchor="middle" font-size="9" fill="#5F5E5A">CustomerID</text>
+        <line x1="55" y1="76" x2="65" y2="100" stroke="#888780" stroke-width="0.5"/>
+        <ellipse cx="75" cy="50" rx="25" ry="14" fill="none" stroke="#888780" stroke-width="0.6"/>
+        <text x="75" y="54" text-anchor="middle" font-size="9" fill="#5F5E5A">Name</text>
+        <line x1="75" y1="64" x2="75" y2="100" stroke="#888780" stroke-width="0.5"/>
+        <ellipse cx="285" cy="60" rx="30" ry="14" fill="none" stroke="#888780" stroke-width="0.6"/>
+        <text x="285" y="64" text-anchor="middle" font-size="9" fill="#5F5E5A">CardNumber</text>
+        <line x1="293" y1="74" x2="303" y2="100" stroke="#888780" stroke-width="0.5"/>
+        <ellipse cx="335" cy="200" rx="28" ry="14" fill="none" stroke="#888780" stroke-width="0.6"/>
+        <text x="335" y="204" text-anchor="middle" font-size="9" fill="#5F5E5A">TxnType</text>
+        <line x1="335" y1="214" x2="335" y2="228" stroke="#888780" stroke-width="0.5"/>
+        <ellipse cx="200" cy="354" rx="28" ry="14" fill="none" stroke="#888780" stroke-width="0.6"/>
+        <text x="200" y="358" text-anchor="middle" font-size="9" fill="#5F5E5A">Amount</text>
+        <line x1="225" y1="354" x2="270" y2="340" stroke="#888780" stroke-width="0.5"/>
+        <ellipse cx="335" cy="420" rx="28" ry="14" fill="none" stroke="#888780" stroke-width="0.6"/>
+        <text x="335" y="424" text-anchor="middle" font-size="9" fill="#5F5E5A">Date/Time</text>
+        <line x1="335" y1="410" x2="335" y2="354" stroke="#888780" stroke-width="0.5"/>
+        <ellipse cx="575" cy="60" rx="28" ry="14" fill="none" stroke="#888780" stroke-width="0.6"/>
+        <text x="575" y="64" text-anchor="middle" font-size="9" fill="#5F5E5A">AccNumber</text>
+        <line x1="575" y1="74" x2="575" y2="100" stroke="#888780" stroke-width="0.5"/>
+        <ellipse cx="640" cy="60" rx="28" ry="14" fill="none" stroke="#888780" stroke-width="0.6"/>
+        <text x="640" y="64" text-anchor="middle" font-size="9" fill="#5F5E5A">Balance</text>
+        <line x1="625" y1="72" x2="608" y2="100" stroke="#888780" stroke-width="0.5"/>
+      </svg>
+      </div>
+      <p style="font-size:12px;margin-top:.5rem;color:var(--color-text-secondary)">Key relationships: Customer owns many Cards (1:M). Card linked to Account (1:1). Customer makes many Transactions (1:M). Transaction done via ATM Machine.</p>
+    </div>
+  </div>
+
+  <!-- FLOWCHARTS -->
+  <div class="section" id="tab-flow">
+    <h2>System Flowcharts</h2>
+    <div class="tip">Flowchart symbols: Rectangle = Process, Diamond = Decision, Oval = Start/End, Parallelogram = Input/Output</div>
+    <div class="row">
+      <div class="card">
+        <h3>PIN Validation Flow</h3>
+        <svg width="100%" viewBox="0 0 280 500">
+          <defs>
+            <marker id="arr5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </marker>
+          </defs>
+          <ellipse cx="140" cy="30" rx="60" ry="18" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.8"/>
+          <text x="140" y="34" text-anchor="middle" font-size="11" fill="#27500A">Start</text>
+          <line x1="140" y1="48" x2="140" y2="68" stroke="#444" stroke-width="0.8" marker-end="url(#arr5)"/>
+          <rect x="80" y="68" width="120" height="36" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+          <text x="140" y="90" text-anchor="middle" font-size="11" fill="#0C447C">Insert Card</text>
+          <line x1="140" y1="104" x2="140" y2="124" stroke="#444" stroke-width="0.8" marker-end="url(#arr5)"/>
+          <rect x="70" y="124" width="140" height="36" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+          <text x="140" y="146" text-anchor="middle" font-size="11" fill="#0C447C">Enter PIN</text>
+          <line x1="140" y1="160" x2="140" y2="180" stroke="#444" stroke-width="0.8" marker-end="url(#arr5)"/>
+          <polygon points="140,180 220,210 140,240 60,210" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+          <text x="140" y="214" text-anchor="middle" font-size="10" fill="#633806">PIN valid?</text>
+          <line x1="220" y1="210" x2="260" y2="210" stroke="#444" stroke-width="0.8" marker-end="url(#arr5)"/>
+          <text x="242" y="204" font-size="9" fill="#3B6D11">Yes</text>
+          <rect x="245" y="196" width="25" height="28" rx="3" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+          <text x="257" y="214" text-anchor="middle" font-size="8" fill="#27500A">Menu</text>
+          <line x1="60" y1="210" x2="20" y2="210" stroke="#444" stroke-width="0.8" marker-end="url(#arr5)"/>
+          <text x="38" y="204" font-size="9" fill="#E24B4A">No</text>
+          <rect x="5" y="197" width="18" height="28" rx="3" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+          <text x="14" y="214" text-anchor="middle" font-size="7" fill="#791F1F">+1</text>
+          <line x1="140" y1="240" x2="140" y2="260" stroke="#444" stroke-width="0.8" marker-end="url(#arr5)"/>
+          <polygon points="140,260 205,285 140,310 75,285" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+          <text x="140" y="289" text-anchor="middle" font-size="10" fill="#633806">3 tries?</text>
+          <line x1="205" y1="285" x2="260" y2="285" stroke="#444" stroke-width="0.8" marker-end="url(#arr5)"/>
+          <text x="232" y="279" font-size="9" fill="#E24B4A">Yes</text>
+          <rect x="248" y="272" width="30" height="26" rx="3" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+          <text x="263" y="289" text-anchor="middle" font-size="8" fill="#791F1F">Retain</text>
+          <line x1="75" y1="285" x2="20" y2="285" stroke="#444" stroke-width="0.8"/>
+          <line x1="20" y1="285" x2="20" y2="142" stroke="#444" stroke-width="0.8"/>
+          <line x1="20" y1="142" x2="70" y2="142" stroke="#444" stroke-width="0.8" marker-end="url(#arr5)"/>
+          <text x="8" y="220" font-size="9" fill="#3B6D11">No</text>
+          <line x1="140" y1="310" x2="140" y2="330" stroke="#444" stroke-width="0.8" marker-end="url(#arr5)"/>
+          <ellipse cx="140" cy="348" rx="60" ry="18" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.8"/>
+          <text x="140" y="352" text-anchor="middle" font-size="10" fill="#791F1F">Contact Bank</text>
+        </svg>
+      </div>
+      <div class="card">
+        <h3>Withdrawal Flow</h3>
+        <svg width="100%" viewBox="0 0 280 500">
+          <defs>
+            <marker id="arr6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </marker>
+          </defs>
+          <ellipse cx="140" cy="28" rx="60" ry="18" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.8"/>
+          <text x="140" y="32" text-anchor="middle" font-size="11" fill="#27500A">Authenticated</text>
+          <line x1="140" y1="46" x2="140" y2="66" stroke="#444" stroke-width="0.8" marker-end="url(#arr6)"/>
+          <rect x="70" y="66" width="140" height="36" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+          <text x="140" y="88" text-anchor="middle" font-size="11" fill="#0C447C">Enter Amount</text>
+          <line x1="140" y1="102" x2="140" y2="122" stroke="#444" stroke-width="0.8" marker-end="url(#arr6)"/>
+          <polygon points="140,122 215,152 140,182 65,152" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+          <text x="140" y="150" text-anchor="middle" font-size="9" fill="#633806">Multiple of 100?</text>
+          <line x1="65" y1="152" x2="30" y2="152" stroke="#444" stroke-width="0.8" marker-end="url(#arr6)"/>
+          <text x="46" y="145" font-size="9" fill="#E24B4A">No</text>
+          <rect x="5" y="140" width="28" height="28" rx="3" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+          <text x="19" y="157" text-anchor="middle" font-size="8" fill="#791F1F">Error</text>
+          <line x1="215" y1="152" x2="255" y2="152" stroke="#444" stroke-width="0.8" marker-end="url(#arr6)"/>
+          <text x="234" y="145" font-size="9" fill="#3B6D11">Yes</text>
+          <line x1="140" y1="182" x2="140" y2="202" stroke="#444" stroke-width="0.8" marker-end="url(#arr6)"/>
+          <polygon points="140,202 215,232 140,262 65,232" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.8"/>
+          <text x="140" y="230" text-anchor="middle" font-size="9" fill="#633806">Sufficient balance?</text>
+          <line x1="65" y1="232" x2="30" y2="232" stroke="#444" stroke-width="0.8" marker-end="url(#arr6)"/>
+          <text x="46" y="225" font-size="9" fill="#E24B4A">No</text>
+          <rect x="5" y="220" width="28" height="28" rx="3" fill="#FCEBEB" stroke="#E24B4A" stroke-width="0.5"/>
+          <text x="19" y="237" text-anchor="middle" font-size="8" fill="#791F1F">Decline</text>
+          <line x1="140" y1="262" x2="140" y2="282" stroke="#444" stroke-width="0.8" marker-end="url(#arr6)"/>
+          <rect x="70" y="282" width="140" height="36" rx="4" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+          <text x="140" y="304" text-anchor="middle" font-size="11" fill="#27500A">Dispense Cash</text>
+          <line x1="140" y1="318" x2="140" y2="338" stroke="#444" stroke-width="0.8" marker-end="url(#arr6)"/>
+          <rect x="70" y="338" width="140" height="36" rx="4" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+          <text x="140" y="358" text-anchor="middle" font-size="11" fill="#27500A">Print Receipt</text>
+          <line x1="140" y1="374" x2="140" y2="394" stroke="#444" stroke-width="0.8" marker-end="url(#arr6)"/>
+          <rect x="70" y="394" width="140" height="36" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+          <text x="140" y="414" text-anchor="middle" font-size="11" fill="#0C447C">Update Records</text>
+          <line x1="140" y1="430" x2="140" y2="450" stroke="#444" stroke-width="0.8" marker-end="url(#arr6)"/>
+          <ellipse cx="140" cy="468" rx="60" ry="18" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.8"/>
+          <text x="140" y="472" text-anchor="middle" font-size="11" fill="#27500A">End</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXTRA TOPICS -->
+  <div class="section" id="tab-extra">
+    <h2>Extra Topics for Exam</h2>
+    <div class="card">
+      <h3>SRS Document Structure (Software Requirements Specification)</h3>
+      <ol style="font-size:13px;color:var(--color-text-secondary);padding-left:1.2rem;line-height:2">
+        <li>Introduction (purpose, scope, definitions)</li>
+        <li>Overall Description (product perspective, functions, users)</li>
+        <li>Functional Requirements</li>
+        <li>Non-Functional Requirements</li>
+        <li>External Interface Requirements (hardware, software, UI)</li>
+        <li>System Constraints</li>
+        <li>Appendices / ER / DFD Diagrams</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Common Exam Questions & Answers</h3>
+      <div class="req-item"><span class="req-num">Q1</span><span><b>What is DFD?</b> — Data Flow Diagram. Shows how data moves through a system. Has 4 symbols: External Entity (rectangle), Process (circle), Data Store (open rect), Data Flow (arrow).</span></div>
+      <div class="req-item"><span class="req-num">Q2</span><span><b>Difference: FR vs NFR?</b> — FR describes what system does (functions). NFR describes how well it does it (performance, reliability, availability).</span></div>
+      <div class="req-item"><span class="req-num">Q3</span><span><b>What is a Use Case?</b> — A description of how a user (actor) interacts with the system to achieve a goal. Shows actors + system boundary + use cases (ovals).</span></div>
+      <div class="req-item"><span class="req-num">Q4</span><span><b>What is ER Diagram?</b> — Entity Relationship diagram. Models the database. Shows entities (rectangles), attributes (ovals), relationships (diamonds), cardinality (1, M, N).</span></div>
+      <div class="req-item"><span class="req-num">Q5</span><span><b>What is Context Diagram?</b> — Level 0 DFD. Shows entire system as ONE process. Shows all external entities and data flows to/from system. No internal details.</span></div>
+      <div class="req-item"><span class="req-num">Q6</span><span><b>What are the ATM transaction types?</b> — Withdraw, Deposit, Balance Enquiry, Transfer, Print Receipt. All must complete within 60 seconds.</span></div>
+    </div>
+    <div class="card">
+      <h3>Quick Cheat Sheet — What to draw on paper</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;">
+        <div style="padding:8px;background:var(--color-background-info);border-radius:var(--border-radius-md);">
+          <p style="font-size:12px;font-weight:500;color:var(--color-text-info);margin-bottom:4px;">Context Diagram</p>
+          <p style="font-size:11px;color:var(--color-text-info);">1 big circle in middle = ATM. Boxes around it = Customer, Bank, Operator. Arrows = data flows.</p>
+        </div>
+        <div style="padding:8px;background:var(--color-background-success);border-radius:var(--border-radius-md);">
+          <p style="font-size:12px;font-weight:500;color:var(--color-text-success);margin-bottom:4px;">Level 1 DFD</p>
+          <p style="font-size:11px;color:var(--color-text-success);">Break ATM into processes (P1–P6). Add data stores D1 (Transaction Log), D2 (Account Data).</p>
+        </div>
+        <div style="padding:8px;background:var(--color-background-warning);border-radius:var(--border-radius-md);">
+          <p style="font-size:12px;font-weight:500;color:var(--color-text-warning);margin-bottom:4px;">Use Case</p>
+          <p style="font-size:11px;color:var(--color-text-warning);">Rectangle box = system. Stick figures outside = actors. Ovals inside = use cases. Lines connect them.</p>
+        </div>
+        <div style="padding:8px;background:var(--color-background-danger);border-radius:var(--border-radius-md);">
+          <p style="font-size:12px;font-weight:500;color:var(--color-text-danger);margin-bottom:4px;">ER Diagram</p>
+          <p style="font-size:11px;color:var(--color-text-danger);">Entities: Customer, Card, Account, Transaction, ATM. Show 1:M, 1:1 cardinalities.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>SafeHome DFD (from your document — also likely exam topic)</h3>
+      <p style="font-size:13px;margin-bottom:.5rem;">The SafeHome security system follows the same DFD principles:</p>
+      <ul style="font-size:13px;">
+        <li><b>External Entities:</b> Homeowner, Monitoring Service, Sensors</li>
+        <li><b>Main Processes:</b> Configure System, Monitor Sensors, Detect Event, Dial Phone, Display Status</li>
+        <li><b>Data Flows:</b> Sensor data → Monitor process → trigger alarm/call</li>
+        <li><b>Data Stores:</b> Configuration data (passwords, phone numbers, sensor types)</li>
+        <li><b>Key NFR:</b> Redials every 20 seconds until connection obtained</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const tabs = ['reqs','dfd','usecase','er','flow','extra'];
+  document.querySelectorAll('.tab')[tabs.indexOf(id)].classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+}
+</script>
