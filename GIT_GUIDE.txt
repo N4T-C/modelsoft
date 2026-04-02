@@ -5,6 +5,8 @@ git checkout -b feature-login
 git log
 git diff
 git remote -v
+git remote remove origin
+git remote add origin https://gitlab.com/kuppanatc/temp.git
 
 NORMAL PUSH (CLEAN SETUP)
 
@@ -38,5 +40,26 @@ git branch -M main
 git remote add origin https://github.com/your-username/your-repo.git
 
 git push -f origin main
+
+
+GITLAB 
+
+rm -rf .git
+
+git init
+
+git add .
+
+git commit -m "force push reset"
+
+git branch -M main
+
+git remote add origin https://gitlab.com/kuppanatc/temp.git
+
+git push -f origin main
+
+git push --force --set-upstream origin main
+
+
 
 
